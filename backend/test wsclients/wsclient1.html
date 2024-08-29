@@ -1,0 +1,24 @@
+<p>hi</p>
+<script>
+  let clientId;
+
+  const socket = new WebSocket('ws://localhost:3000');
+
+  const endpoint = '0cce-217-180-201-58'
+
+  socket.onopen = function(e) {
+    console.log('Connection open!');
+    socket.send(JSON.stringify({ subscribe: endpoint }));
+  };
+
+  socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    if (data.clientId) {
+      clientId = data.clientId;
+      console.log(`Received client ID: ${clientId}`);
+    } else {
+      console.log(`Message from server: ${event.data}`);
+    }
+  };
+
+</script>
