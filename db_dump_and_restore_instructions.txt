@@ -1,0 +1,30 @@
+To dump the postgres db on your local machine into the repo, be sure you are in
+the project folder and do this command:
+
+pg_dump -d request_bin_be --inserts > be.sql
+
+
+To restore the postgres db on your local system from the version that has been
+added to the repo, do these commands:
+
+WARNING: Check be.sql and if any user who is not 'request_bin_be' is listed as
+'owner' on the tables, replace that value with 'request_bin_be'
+
+dropdb request_bin_be
+psql -d request_bin_be < be.sql
+
+
+***
+
+To dump the mongodb on your local machine into the repo, be sure you are in the
+project folder and do this command:
+
+mongodump --db="requestbin_be"
+
+To restore the mongodb on your local system from the version that has been added
+to the repo, do this command:
+
+mongorestore --drop dump/
+
+(The mongodump adds or replaces a folder in the project called 'dump', which
+contains the data files for the restore.)
